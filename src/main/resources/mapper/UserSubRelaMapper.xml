@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.homework_one.dao.UserSubRelaMapper">
+  <resultMap id="BaseResultMap" type="com.example.homework_one.model.UserSubRela">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="sub_id" jdbcType="CHAR" property="subId" />
+    <result column="user_id" jdbcType="CHAR" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sub_id, user_id
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_sub_rela
+    where id = #{id,jdbcType=CHAR}
+  </select>
+
+  <select id="selectSubIdByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    sub_id
+    from user_sub_rela
+    where user_id = #{user_id,jdbcType=CHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_sub_rela
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.homework_one.model.UserSubRela">
+    insert into user_sub_rela (id, sub_id, user_id)
+    values (#{id,jdbcType=CHAR}, #{subId,jdbcType=CHAR}, #{userId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.homework_one.model.UserSubRela">
+    insert into user_sub_rela
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="subId != null">
+        sub_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="subId != null">
+        #{subId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.homework_one.model.UserSubRela">
+    update user_sub_rela
+    <set>
+      <if test="subId != null">
+        sub_id = #{subId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.homework_one.model.UserSubRela">
+    update user_sub_rela
+    set sub_id = #{subId,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
